@@ -105,7 +105,8 @@ app.get("/:newpage", function(req,res){
     // the first updated document is shown
     if(!err){
       if(pagename==="Favicon.ico") return;
-      //  By default, your browser looks for an icon file each time you request a new page; some browsers cache this file after it's found the first time. The <link rel="icon" href="LOCATION">
+      //  By default, your browser looks for an icon file each time you request a new page; some browsers cache this file after it's found the first time.
+      //The <link rel="icon" href="LOCATION">
       // points the browser to the location of the icon file which by convention is called Favicon.ico.
       // If the href is an external URL, it will fetch the icon from that URL. If the href is a path (e.g. "Favicon.ico"),
       // then it will look inside your public folder, and if it doesn't exist in the public folder then it will be called as a
@@ -129,7 +130,11 @@ app.get("/:newpage", function(req,res){
 app.get("/about", function(req, res){
   res.render("about");
 });
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("Server started on port 3000");
 });
