@@ -6,7 +6,7 @@ const mongoose=require("mongoose");
 const app = express();
 const _=require("lodash");
 mongoose.connect("mongodb+srv://admin-"+process.env.ADMIN+":"+process.env.PASSWORD+"@cluster0.ae0t7.mongodb.net/todolistdb?retryWrites=true&w=majority",{useNewUrlParser:true});
-//  mongoose.connect("mongodb+srv://admin-draco:Test123@cluster0.ae0t7.mongodb.net/todolistdb?retryWrites=true&w=majority",{useNewUrlParser:true});
+
 
 const listSchema=new mongoose.Schema({
   name:String
