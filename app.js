@@ -1,11 +1,13 @@
 //jshint esversion:6
-
+require ("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose=require("mongoose");
 const app = express();
 const _=require("lodash");
-mongoose.connect("mongodb+srv://admin-draco:Test123@cluster0.ae0t7.mongodb.net/todolistdb?retryWrites=true&w=majority",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-"+process.env.ADMIN+":"+process.env.PASSWORD+"@cluster0.ae0t7.mongodb.net/todolistdb?retryWrites=true&w=majority",{useNewUrlParser:true});
+//  mongoose.connect("mongodb+srv://admin-draco:Test123@cluster0.ae0t7.mongodb.net/todolistdb?retryWrites=true&w=majority",{useNewUrlParser:true});
+
 const listSchema=new mongoose.Schema({
   name:String
 })
@@ -70,7 +72,8 @@ app.post("/", function(req, res){
     Thing.findOne({name:req.body.list},function(err,ans){
       if(!err){
         ans.itemarr.push(newitem);
-        ans.save();
+        ans.save();//new object is not craeted. when the code is rerun the object creation reruns which create a new object and that gets saved
+        //in changing something with the existing object doesnt craete a new object
         res.redirect("/"+ans.name);
       }
     })
@@ -101,8 +104,7 @@ app.post("/delete",function(req,res){
 
 app.get("/:newpage", function(req,res){
   const pagename=_.capitalize(req.params.newpage);
-  Thing.findOne({name:pagename},function(err,result){// on saving in the post route new document is created with the same name althogugh we use findOne so
-    // the first updated document is shown
+  Thing.findOne({name:pagename},function(err,result){
     if(!err){
       if(pagename==="Favicon.ico") return;
       //  By default, your browser looks for an icon file each time you request a new page; some browsers cache this file after it's found the first time.
