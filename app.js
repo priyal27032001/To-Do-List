@@ -25,33 +25,33 @@ app.use(express.static("public"));
 
 // const items = ["Buy Food", "Cook Food", "Eat Food"];
 // creating database
-const item1=new List({
-  name:"Buy Food"
-})
-const item2=new List({
-  name:"Cook Food"
-})
-const item3=new List({
-  name:"Eat Food"
-})
-const itemsarray=[item1,item2,item3];
+// const item1=new List({
+//   name:"Buy Food"
+// })
+// const item2=new List({
+//   name:"Cook Food"
+// })
+// const item3=new List({
+//   name:"Eat Food"
+// })
+const itemsarray=[];
 
 app.get("/", function(req, res) {
   //printing ListItems
   List.find(function(err,items){
     if(err) console.log(err);
     else{
-      if(items.length===0){
-        List.insertMany(itemsarray,function(err){
-          if(err) console.log(err);
-          else console.log("successfully added");
-            res.redirect("/");
-        })
-
-      }
-      else{
+      // if(items.length===0){
+      //   List.insertMany(itemsarray,function(err){
+      //     if(err) console.log(err);
+      //     else console.log("successfully added");
+      //       res.redirect("/");
+      //   })
+      //
+      // }
+      // else
       res.render("list", {listTitle:"Today", newListItems: items});
-    }}
+  }
   })
 
 
